@@ -1,33 +1,35 @@
 <template>
   <div
     @touchmove="(e) => e.preventDefault()"
-    class="flex flex-col grow bg-[url('/images/bg-blue-green.png')] bg-cover bg-center justify-between relative overflow-hidden cursor-pointer"
+    class="flex flex-col grow bg-[#085CB0] bg-cover bg-center justify-between relative overflow-hidden cursor-pointer"
   >
-    <div class="bg-[#2cc9b9] absolute inset-0"></div>
+    <!-- Overlay background solid color -->
+    <div class="bg-[#085CB0] absolute inset-0 z-0"></div>
 
-    <!-- container scrollable -->
+    <!-- Container scrollable -->
     <div
-      class="relative min-h-dvh overflow-y-auto no-scrollbar"
+      class="relative z-10 overflow-y-auto min-h-dvh no-scrollbar"
       @touchmove="handleTouchMove"
       @click="handleShowModal"
     >
-      <img src="/assets/images/TOP.png" alt="top" class="w-full" />
-      <div class="">
-        <!-- Tap screen -->
-        <!-- <div class="absolute w-full pb-10 tap-screen">
-          <div class="justify-center items-center w-full flex flex-col mb-3">
-            <img :src="tapScreen" alt="intl" class="" preload />
-            <p class="text-exd-1218 text-white text-center">
-              {{ $t('loginOrRegisterTop') }}
-            </p>
-          </div>
+      <img src="/public/images/TOP.png" alt="top" class="w-full h-full" />
 
-          <p
-            class="text-white text-center text-exd-1218 font-semibold cursor-pointer"
-          >
-            {{ $t('addToBookmarks') }}
-          </p>
-        </div> -->
+      <div
+        class="absolute w-full h-[488px] z-[20] transform -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-cover left-1/2 top-1/2 flex items-center justify-center"
+        :style="{ backgroundImage: `url(${ovalBlur})` }"
+      >
+        <img :src="topTitle" alt="intl" class="w-[350px]" />
+      </div>
+
+      <div
+        class="absolute bottom-0 w-full transform -translate-x-1/2 bg-center bg-no-repeat bg-cover h-[580px] left-1/2"
+        :style="{ backgroundImage: `url(${blueGradient})` }"
+      >
+        <img
+          :src="tapScreen"
+          alt="intl"
+          class="w-[300px] absolute left-1/2 bottom-[5%] transform -translate-x-1/2 -translate-y-1/2"
+        />
       </div>
     </div>
   </div>
@@ -54,19 +56,12 @@
 </template>
 
 <script setup>
-import intlRounded from '~/assets/images/intl-rounded.svg'
-import logoIcon from '~/assets/images/logo-icon.svg'
+import topTitle from '~/public/images/top-title.png'
+import ovalBlur from '~/assets/images/oval-blur.png'
 import tapScreen from '~/assets/images/tap-screen.png'
-import logo from '~/assets/images/logo.png'
+import blueGradient from '~/public/images/blue-gradient.png'
 import { nextTick } from 'vue'
 import WarningPopUp from '~/components/WarningPopUp.vue'
-import gacha from '~/assets/images/gacha.png'
-import picture1 from '~/assets/images/picture1.png'
-import picture2 from '~/assets/images/picture2.png'
-import get from '~/assets/images/get.png'
-import intl from '~/assets/images/intl.png'
-import character from '~/assets/images/character.png'
-import talk from '~/assets/images/talk.png'
 
 const route = useRoute()
 const router = useRouter()

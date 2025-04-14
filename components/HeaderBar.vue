@@ -29,12 +29,12 @@
       v-else
     >
       <img
-        src="/images/header-logo.png"
+        src="/images/shachi-spin.png"
         alt="intl"
         width="140"
         height="44"
         preload
-        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
       />
     </div>
     <div class="pr-5 shrink-0">

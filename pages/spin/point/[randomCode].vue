@@ -1,12 +1,13 @@
 <template>
   <div
-    class="grow bg-[url('/images/bg-gacha-character.png')] bg-cover bg-center relative flex flex-col justify-center items-center"
+    class="relative flex flex-col items-center justify-center bg-center bg-cover grow"
     @touchmove="(e) => e.preventDefault()"
   >
+    <img :src="bgTop" alt="top" class="absolute w-full h-full" />
     <SparkleStart className="top-3 z-30" />
 
     <img
-      src="/images/gacha-tom.png"
+      :src="gachaTom"
       alt="gacha2"
       class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] max-w-none h-auto max-h-[96svh] object-contain"
       preload
@@ -14,14 +15,16 @@
     <img
       src="/images/sparkling.png"
       alt="sparkling"
-      class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full object-cover z-10 animate-sparkling"
+      class="absolute z-10 object-cover w-full h-full transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 animate-sparkling"
       preload
     />
-    <div class="absolute inset-0 flex justify-center z-20">
+    <!-- :imageSrc="pointImageUrl"
+    :categorySrc="categoryImageUrl" -->
+    <div class="absolute inset-0 z-20 flex justify-center">
       <CircleSpinPoint
         class="relative top-1/2 -translate-y-[60%]"
-        :imageSrc="pointImageUrl"
-        :categorySrc="categoryImageUrl"
+        imageSrc="/images/shachi-char.png"
+        categorySrc="/images/rank-gold.png"
         width="100%"
         height="800"
       />
@@ -66,6 +69,9 @@
 <script setup>
 import moment from 'moment'
 import { useI18n } from 'vue-i18n'
+import bgTop from '~/public/images/TOP.png'
+import gachaTom from '~/public/images/gacha-tom.png'
+
 const router = useRouter()
 const route = useRoute()
 
