@@ -107,7 +107,7 @@ const checkCaches = () => {
       class="relative z-10 flex flex-col items-center justify-center w-full h-full text-exd-red"
     >
       <div
-        class="-z-10 absolute w-full h-[488px] z-[20] transform -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-cover left-1/2 top-1/2 flex items-center justify-center"
+        class="-z-10 absolute w-full h-[488px] transform -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-cover left-1/2 top-1/2 flex items-center justify-center"
         :style="{ backgroundImage: `url(${ovalBlur})` }"
       ></div>
       <img
