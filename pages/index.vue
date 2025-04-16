@@ -10,7 +10,6 @@
     <div
       class="relative z-10 overflow-y-auto min-h-dvh no-scrollbar"
       @touchmove="handleTouchMove"
-      @click="handleShowModal"
     >
       <img src="/public/images/TOP.png" alt="top" class="w-full h-full" />
 
@@ -75,6 +74,10 @@ const TOKEN = useCookie('TOKEN')
 const USER = useCookie('USER')
 const VALID_PASSWORD = useCookie('VALID_PASSWORD')
 const langPanel = ref(false)
+
+definePageMeta({
+  name: 'top'
+})
 
 const handleShowModal = () => {
   hasModal.value = true
