@@ -1,4 +1,6 @@
 <script setup>
+import ovalBlur from '~/assets/images/oval-blur.png'
+
 const loading = ref(true)
 const isSupportSerWroker = ref(false)
 let checkCachesInterval
@@ -59,23 +61,19 @@ const checkCaches = () => {
     '/video/new-spin-point.mp4',
     '/video/new-spin-character.mp4',
     '/images/sparkling.png',
-    '/images/bg-gacha-spin.png',
-    '/images/bg-gacha-character.png',
-    '/images/logo.png',
+    '/images/TOP.png',
+    '/images/shachi-spin.png',
+    '/images/gacha-tom.png',
     '/images/warning.svg',
-    '/images/header-logo.png',
     '/images/close.svg',
     '/images/export.svg',
     '/images/intl-tom.png',
     '/images/back-button.svg',
-    '/images/ssr.png',
-    '/images/sr.png',
-    '/images/r.png',
-    '/images/text-char.png',
+    '/images/rank-gold.png',
     '/icons/icon-gift.svg',
   ]
   caches
-    .open(`gacharary-kaiyuu-v2 - ${self.location.origin}`)
+    .open(`gacharary-shachi-v2 - ${self.location.origin}`)
     .then(function (cache) {
       return cache.keys()
     })
@@ -96,19 +94,30 @@ const checkCaches = () => {
 <template>
   <div
     v-if="loading"
-    class="w-full max-w-md mx-auto h-screen overflow-hidden bg-[url('/images/bg-gacha-spin.png')] bg-cover bg-center flex flex-col fixed z-[2000]"
+    class="w-full max-w-md mx-auto h-screen overflow-hidden bg-cover bg-center flex flex-col fixed z-[2000]"
   >
+    <img
+      src="/public/images/TOP.png"
+      alt="top"
+      class="absolute w-full h-full"
+    />
     <div
-      class="h-full w-full flex flex-col justify-center items-center text-exd-red"
+      class="relative z-10 flex flex-col items-center justify-center w-full h-full text-exd-red"
     >
+      <div
+        class="-z-10 absolute w-full h-[488px] transform -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-cover left-1/2 top-1/2 flex items-center justify-center"
+        :style="{ backgroundImage: `url(${ovalBlur})` }"
+      ></div>
       <img
         src="~/assets/images/gacha-loading.gif"
         class="w-[100px] h-[100px]"
       />
-      <img
+      <h1 class="font-bold text-exd-2238 text-[#1F52BC] font-noto">LOADING…</h1>
+
+      <!-- <img
         src="~/assets/images/loading.png"
         class="mt-6 ml-5 w-[126px] h-[24px]"
-      />
+      /> -->
     </div>
   </div>
 </template>

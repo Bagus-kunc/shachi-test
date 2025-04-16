@@ -314,5 +314,6 @@
   "eligibilityMessageType4": "Please wait after {minutes} minutes {seconds} seconds to play gacha again",
   "eligibilityMessageMaxQuota": "The point quota has reached maximum user , please play again to receive different prize",
   "formHere": "The Form Is Here",
-  "playAgain": "Thank You Very Much!"
+  "playAgain": "Thank You Very Much!",
+  "congrats": "Congratulations! Please show this screen to the store staff."
 }
