@@ -62,20 +62,18 @@ const checkCaches = () => {
     '/video/new-spin-character.mp4',
     '/images/sparkling.png',
     '/images/TOP.png',
-    '/images/bg-gacha-character.png',
-    '/images/logo.png',
+    '/images/shachi-spin.png',
+    '/images/gacha-tom.png',
     '/images/warning.svg',
-    '/images/header-logo.png',
     '/images/close.svg',
     '/images/export.svg',
     '/images/intl-tom.png',
     '/images/back-button.svg',
     '/images/rank-gold.png',
-    '/images/text-char.png',
     '/icons/icon-gift.svg',
   ]
   caches
-    .open(`gacharary-kaiyuu-v2 - ${self.location.origin}`)
+    .open(`gacharary-shachi-v2 - ${self.location.origin}`)
     .then(function (cache) {
       return cache.keys()
     })

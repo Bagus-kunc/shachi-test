@@ -3,7 +3,7 @@
     :visible="visible"
     @update:visible="$emit('update:visible')"
     modal
-    class="!bg-white !w-11/12 !max-w-sm border border-exd-gray-44"
+    class="!bg-white !w-11/12 !max-w-[320px] border border-exd-gray-44"
   >
     <template v-if="isRedirect" #container>
       <img
@@ -27,16 +27,19 @@
         <div
           :class="[
             'font-bold  px-4 text-exd-1530 text-center text-exd-gray-scorpion',
-            popupImage ? 'pt-3 pb-10' : 'py-10',
+            popupImage ? 'pt-3 pb-8' : 'py-10',
           ]"
           style="text-shadow: 0 3px 3px rgba(0, 0, 0, 0.16)"
         >
-          <!-- v-html="popupDescription" -->
-          <div class="max-h-[200px] px-16 overflow-auto leading-normal">
+          
+          <!-- <div class="max-h-[200px] px-16 overflow-auto leading-normal" v-html="popupDescription">
+          </div> -->
+
+          <p class="max-h-[200px] px-8 leading-normal whitespace-pre-line">
             {{ $t('congrats') }}
-          </div>
+          </p>
         </div>
-        <div class="inline-flex items-center justify-center w-full gap-3 mb-6">
+        <div class="inline-flex items-center justify-center w-full gap-3">
           <div class="speech-bubble text-[10pt]">
             {{ $t('share') }}
             <div class="triangle-border"></div>

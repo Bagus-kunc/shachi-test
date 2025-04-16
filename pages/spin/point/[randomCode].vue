@@ -4,7 +4,6 @@
     @touchmove="(e) => e.preventDefault()"
   >
     <img :src="bgTop" alt="top" class="absolute w-full h-full" />
-    <SparkleStart className="top-3 z-30" />
 
     <img
       :src="gachaTom"
@@ -21,8 +20,9 @@
     <!-- :imageSrc="pointImageUrl"
     :categorySrc="categoryImageUrl" -->
     <div class="absolute inset-0 z-20 flex justify-center">
+      <SparkleStart className="top-3 z-10" />
       <CircleSpinPoint
-        class="relative top-1/2 -translate-y-[60%]"
+        class="relative top-1/2 -translate-y-[60%] z-20"
         imageSrc="/images/shachi-char.png"
         categorySrc="/images/rank-gold.png"
         width="100%"

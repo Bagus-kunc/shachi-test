@@ -20,7 +20,7 @@
 
       <SolidButton
         :label="$t('spinTheGacha')"
-        variant="dark"
+        :variant="isLoading ? 'red' : 'dark'"
         :disabled="isLoading"
         :has-loading="isLoading"
         :on-click="() => nextToSpin()"
@@ -373,6 +373,7 @@ definePageMeta({
 })
 
 const nextToSpin = async () => {
+  isLoading.value = true
   const notRequiredPin = useState('not_required_pin')
   const notRequiredRadius = useState('not_required_radius')
 
@@ -391,7 +392,11 @@ const nextToSpin = async () => {
     return
   }
 
-  playVideo.value = true
+  setTimeout(() => {
+    isLoading.value = false
+    playVideo.value = true
+  }, 1000)
+
 }
 
 const goToSpinPoint = async () => {
@@ -664,5 +669,15 @@ onMounted(() => {
 
 :global(body.modal-open .p-dialog) {
   pointer-events: auto;
+}
+</style>
+
+<style scoped>
+:deep(.p-disabled) {
+  opacity: 1;
+}
+
+:deep(.p-component:disabled) {
+  opacity: 1;
 }
 </style>
