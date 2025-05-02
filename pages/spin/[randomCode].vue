@@ -20,7 +20,7 @@
 
       <SolidButton
         :label="$t('spinTheGacha')"
-        :variant="isLoading ? 'red' : 'dark'"
+        variant="dark"
         :disabled="isLoading"
         :has-loading="isLoading"
         :on-click="() => nextToSpin()"
@@ -396,7 +396,6 @@ const nextToSpin = async () => {
     isLoading.value = false
     playVideo.value = true
   }, 1000)
-
 }
 
 const goToSpinPoint = async () => {

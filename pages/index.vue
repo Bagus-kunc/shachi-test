@@ -11,6 +11,7 @@
       class="relative z-10 overflow-y-auto min-h-dvh no-scrollbar"
       @touchmove="handleTouchMove"
     >
+      <!-- @click="handleShowModal" -->
       <img src="/public/images/TOP.png" alt="top" class="w-full h-full" />
 
       <div
@@ -76,7 +77,7 @@ const VALID_PASSWORD = useCookie('VALID_PASSWORD')
 const langPanel = ref(false)
 
 definePageMeta({
-  name: 'top'
+  name: 'top',
 })
 
 const handleShowModal = () => {
