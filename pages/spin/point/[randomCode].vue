@@ -17,14 +17,13 @@
       class="absolute z-10 object-cover w-full h-full transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 animate-sparkling"
       preload
     />
-    <!-- :imageSrc="pointImageUrl"
-    :categorySrc="categoryImageUrl" -->
+
     <div class="absolute inset-0 z-20 flex justify-center">
       <SparkleStart className="top-3 z-10" />
       <CircleSpinPoint
         class="relative top-1/2 -translate-y-[60%] z-20"
-        imageSrc="/images/shachi-char.png"
-        categorySrc="/images/rank-gold.png"
+        :imageSrc="pointImageUrl"
+        :categorySrc="categoryImageUrl"
         width="100%"
         height="800"
       />
@@ -60,6 +59,7 @@
       :popup-description="popupDescription"
       :popup-image="popupImage"
       :point-category-is-fail="pointCategoryIsFail"
+      :shareData="shareData"
       @closeModalLogin="handleCloseModalLogin"
     />
     <ModalLogin v-model="modalLogin" />
@@ -89,6 +89,8 @@ const spinInterval = useState('spin_interval')
 
 const hideCharacter = ref(false)
 const hasModal = ref(false)
+const shareData = ref([])
+
 const handleShowDialog = () => (hasModal.value = true)
 const handleCloseDialog = () => (hasModal.value = false)
 
@@ -166,6 +168,7 @@ const fetchImageFromApi = async () => {
         button_name: data.button_name,
         popup_description: data.popup_description,
         redirect_link: data.redirect_link,
+        share: data.share,
       }
 
       localStorage.setItem(slugStorageName, encryptData(storage))
@@ -179,6 +182,10 @@ const fetchImageFromApi = async () => {
       popupDescription.value = storage.popup_description
       popupImage.value = storage.popup_image
       pointCategoryIsFail.value = storage.point_category_is_fail
+
+      if (storage.share) {
+        shareData.value = storage.share
+      }
 
       if (storage.point_category_is_fail) {
         popupButton.value = t('playAgain')
@@ -202,6 +209,7 @@ const fetchImageFromApi = async () => {
           pointImageUrl.value = parse.point_image
           categoryImageUrl.value = parse.popup_image
           pointName.value = parse.point_name
+          shareData.value = parse.share
 
           localStorage.setItem(slugStorageName, encryptData({ ...parse }))
 
@@ -220,6 +228,9 @@ const fetchImageFromApi = async () => {
         popupImage.value = parse.popup_image
         pointCategoryIsFail.value = parse.point_category_is_fail
 
+        if (parse.share) {
+          shareData.value = parse.share
+        }
         if (parse.point_category_is_fail) {
           popupButton.value = t('playAgain')
         } else {
@@ -251,6 +262,10 @@ const fetchImageFromApi = async () => {
           popupDescription.value = parse.popup_description
           popupImage.value = parse.popup_image
           pointCategoryIsFail.value = parse.point_category_is_fail
+
+          if (parse.share) {
+            shareData.value = parse.share
+          }
 
           if (parse.point_category_is_fail) {
             popupButton.value = t('playAgain')
@@ -301,6 +316,7 @@ const fetchImageFromApi = async () => {
         point_category_is_fail: !!data.point.point_category_is_fail,
         spin_date: new Date().toLocaleString(),
         hide_character: data?.hide_character,
+        share: data?.share,
       }
 
       localStorage.setItem(slugStorageName, encryptData(storage))
@@ -314,6 +330,10 @@ const fetchImageFromApi = async () => {
       popupDescription.value = storage.popup_description
       popupImage.value = storage.popup_image
       pointCategoryIsFail.value = storage.point_category_is_fail
+
+      if (storage.share) {
+        shareData.value = storage.share
+      }
 
       if (storage.point_category_is_fail) {
         popupButton.value = t('playAgain')
@@ -372,6 +392,10 @@ const futureDateFromMinutes = (minutes) => {
 
 onMounted(() => {
   fetchImageFromApi()
+})
+
+watchEffect(() => {
+  // console.log('shareData', shareData.value)
 })
 </script>
 
