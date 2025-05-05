@@ -14,10 +14,10 @@
     <img
       src="/images/sparkling.png"
       alt="sparkling"
-      class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full object-cover z-10 animate-sparkling"
+      class="absolute z-10 object-cover w-full h-full transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 animate-sparkling"
       preload
     />
-    <div class="absolute inset-0 flex justify-center z-20">
+    <div class="absolute inset-0 z-20 flex justify-center">
       <CircleSpinCharacter
         class="relative top-1/2 -translate-y-[50%]"
         :imageSrc="characterImageUrl"
@@ -69,11 +69,11 @@
         width="30"
         height="30"
         preload
-        class="absolute right-1 top-1 cursor-pointer z-50"
+        class="absolute z-50 cursor-pointer right-1 top-1"
         @click="handleClose"
       />
       <div
-        class="w-full flex flex-col justify-center items-center gap-4 py-6 px-6"
+        class="flex flex-col items-center justify-center w-full gap-4 px-6 py-6"
       >
         <img
           src="/images/warning.svg"
@@ -82,7 +82,7 @@
           height="40"
           preload
         />
-        <div class="text-center w-10/12">
+        <div class="w-10/12 text-center">
           <p class="font-bold text-exd-1424 text-exd-gray-scorpion">
             {{ errorMessages }}
           </p>
@@ -104,6 +104,7 @@ definePageMeta({
 })
 
 const { setSourceFrom } = useRegister()
+const route = useRoute()
 
 const hasModal = ref(false)
 const errorMessages = ref('')
@@ -166,6 +167,7 @@ const fetchImage = async () => {
     const slug = parsedData.slug.toUpperCase()
 
     const slugData = decryptData(localStorage.getItem(`${slug}_GACHA`))
+    console.log(slugData)
 
     characterImageUrl.value = slugData?.character_image
     charName.value = slugData?.character_name
@@ -176,7 +178,9 @@ const fetchImage = async () => {
     popupImage.value = slugData?.popup_image
     pointCategoryIsFail.value = slugData?.point_category_is_fail
 
-    if (slugData?.point_category_is_fail) {
+    if (slugData?.hide_character && route.path.includes('character')) {
+      navigateTo(`/spin/${parsedData.slug}`)
+    } else if (slugData?.point_category_is_fail) {
       popupButton.value = t('playAgain')
     } else {
       popupButton.value = t('formHere')

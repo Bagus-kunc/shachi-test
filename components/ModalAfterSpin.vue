@@ -31,7 +31,6 @@
           ]"
           style="text-shadow: 0 3px 3px rgba(0, 0, 0, 0.16)"
         >
-          
           <!-- <div class="max-h-[200px] px-16 overflow-auto leading-normal" v-html="popupDescription">
           </div> -->
 
@@ -39,7 +38,9 @@
             {{ $t('congrats') }}
           </p>
         </div>
-        <div class="inline-flex items-center justify-center w-full gap-3">
+        <div
+          class="inline-flex flex-wrap items-center justify-center w-full px-8 gap-x-3 gap-y-1"
+        >
           <div class="speech-bubble text-[10pt]">
             {{ $t('share') }}
             <div class="triangle-border"></div>
@@ -47,24 +48,13 @@
           </div>
 
           <img
-            :src="line"
-            alt="line"
-            class="cursor-pointer size-10"
-            @click="share('line')"
-            preload
-          />
-          <img
-            :src="x"
-            alt="x"
-            class="cursor-pointer size-10"
-            @click="share('x')"
-            preload
-          />
-          <img
-            :src="facebook"
-            alt="facebook"
-            class="cursor-pointer size-10"
-            @click="share('facebook')"
+            v-for="(link, index) in socialMediaLinks"
+            :key="index"
+            :src="link.src"
+            :alt="link.alt"
+            :aria-label="link.alt"
+            class="cursor-pointer md:size-7 size-7"
+            @click="openLink(link.url)"
             preload
           />
         </div>
@@ -118,8 +108,14 @@ import download from '~/assets/images/download.svg'
 import facebook from '~/assets/images/facebook.svg'
 import line from '~/assets/images/line.svg'
 import x from '~/assets/images/x.svg'
+import instagram from '~/assets/images/instagram.png'
+import tiktok from '~/assets/images/tiktok.png'
+import web1 from '~/assets/icons/web1.png'
+import web2 from '~/assets/icons/web2.png'
+import web3 from '~/assets/icons/web3.png'
 
 const t = useI18n()
+const socialMediaLinks = ref([])
 
 const props = defineProps({
   visible: {
@@ -132,6 +128,7 @@ const props = defineProps({
   popupDescription: { type: String, default: '' },
   popupImage: { type: String, default: '' },
   pointCategoryIsFail: { type: Boolean, default: false },
+  shareData: { type: Array, default: () => [] },
 })
 
 const emit = defineEmits(['update:visible', 'closeModalLogin'])
@@ -167,19 +164,23 @@ const handleToLogin = () => {
   emit('closeModalLogin')
 }
 
+const openLink = (url) => {
+  window.open(url, '_blank')
+}
+
 const share = (type) => {
   switch (type) {
+    case 'image':
+      downloadImage()
+      break
     case 'facebook':
-      window.open('https://www.facebook.com')
-      // shareToFacebook()
+      shareToFacebook()
       break
     case 'x':
-      // shareToX()
-      window.open('https://twitter.com')
+      shareToX()
       break
     case 'line':
-      // shareToLine()
-      window.open('https://line.me')
+      shareToLine()
       break
 
     default:
@@ -250,6 +251,22 @@ const shareToLine = () => {
     console.log(error)
   }
 }
+
+watch(
+  () => props.shareData,
+  (share) => {
+    socialMediaLinks.value = [
+      { url: share.share_website1, src: web1, alt: 'Web 1' },
+      { url: share.share_website2, src: web2, alt: 'Web 2' },
+      { url: share.share_website3, src: web3, alt: 'Web 3' },
+      { url: share.share_line_link, src: line, alt: 'Line' },
+      { url: share.share_x_link, src: x, alt: 'X (Twitter)' },
+      { url: share.share_fb_link, src: facebook, alt: 'Facebook' },
+      { url: share.share_ig_link, src: instagram, alt: 'Instagram' },
+      { url: share.share_tiktok_link, src: tiktok, alt: 'TikTok' },
+    ].filter((link) => link.url)
+  }
+)
 </script>
 
 <style scoped>
