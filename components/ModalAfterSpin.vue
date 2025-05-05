@@ -19,10 +19,7 @@
         class="w-full flex flex-col justify-center items-center py-6 !pb-8 relative"
       >
         <div v-if="popupImage" class="w-auto h-24 mt-4">
-          <img
-            src="/images/rank-gold.png"
-            class="object-contain w-full h-full"
-          />
+          <img :src="popupImage" class="object-contain w-full h-full" />
         </div>
         <div
           :class="[
