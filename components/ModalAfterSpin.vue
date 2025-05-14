@@ -51,7 +51,7 @@
             :alt="link.alt"
             :aria-label="link.alt"
             class="cursor-pointer md:size-7 size-7"
-            @click="openLink(link.url)"
+            @click="share(link.type)"
             preload
           />
         </div>
@@ -113,6 +113,9 @@ import web3 from '~/assets/icons/web3.png'
 
 const t = useI18n()
 const socialMediaLinks = ref([])
+
+const config = useRuntimeConfig()
+const quote = config.public.META_QUOTE
 
 const props = defineProps({
   visible: {
@@ -185,25 +188,23 @@ const share = (type) => {
   }
 }
 
-const generateUrlToShare = () => {
+const generateUrlToShare = (type) => {
+  let url = ''
+
+  socialMediaLinks.value.forEach((link) => {
+    if (link.type === type) {
+      url = link.url
+    }
+  })
+
   let objectToShare = {
     url: url,
     quote: quote,
   }
 
   try {
-    objectToShare.url =
-      url +
-      '/share/' +
-      spinDetailData.value.character_id +
-      '/' +
-      spinDetailData.value.location_id
-    objectToShare.quote =
-      quote +
-      '/share/' +
-      spinDetailData.value.character_id +
-      '/' +
-      spinDetailData.value.location_id
+    objectToShare.url = url
+    objectToShare.quote = quote + ' ' + url
   } catch (error) {
     console.log(error)
   }
@@ -212,7 +213,7 @@ const generateUrlToShare = () => {
 }
 
 const shareToFacebook = () => {
-  let objectToShare = generateUrlToShare()
+  let objectToShare = generateUrlToShare('facebook')
   try {
     window.open(
       `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
@@ -225,7 +226,7 @@ const shareToFacebook = () => {
 }
 
 const shareToX = () => {
-  let objectToShare = generateUrlToShare()
+  let objectToShare = generateUrlToShare('x')
 
   try {
     window.open(
@@ -239,7 +240,7 @@ const shareToX = () => {
 }
 
 const shareToLine = () => {
-  let objectToShare = generateUrlToShare()
+  let objectToShare = generateUrlToShare('line')
   try {
     window.open(
       `https://line.me/R/msg/text/?${encodeURIComponent(objectToShare.quote)}`
@@ -253,14 +254,28 @@ watch(
   () => props.shareData,
   (share) => {
     socialMediaLinks.value = [
-      { url: share.share_website1, src: web1, alt: 'Web 1' },
-      { url: share.share_website2, src: web2, alt: 'Web 2' },
-      { url: share.share_website3, src: web3, alt: 'Web 3' },
-      { url: share.share_line_link, src: line, alt: 'Line' },
-      { url: share.share_x_link, src: x, alt: 'X (Twitter)' },
-      { url: share.share_fb_link, src: facebook, alt: 'Facebook' },
-      { url: share.share_ig_link, src: instagram, alt: 'Instagram' },
-      { url: share.share_tiktok_link, src: tiktok, alt: 'TikTok' },
+      { url: share.share_website1, src: web1, alt: 'Web 1', type: 'web1' },
+      { url: share.share_website2, src: web2, alt: 'Web 2', type: 'web2' },
+      { url: share.share_line_link, src: line, alt: 'Line', type: 'line' },
+      { url: share.share_x_link, src: x, alt: 'X (Twitter)', type: 'x' },
+      {
+        url: share.share_fb_link,
+        src: facebook,
+        alt: 'Facebook',
+        type: 'facebook',
+      },
+      {
+        url: share.share_ig_link,
+        src: instagram,
+        alt: 'Instagram',
+        type: 'instagram',
+      },
+      {
+        url: share.share_tiktok_link,
+        src: tiktok,
+        alt: 'TikTok',
+        type: 'tiktok',
+      },
     ].filter((link) => link.url)
   }
 )
