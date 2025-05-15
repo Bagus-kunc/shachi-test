@@ -137,6 +137,9 @@ module.exports = {
         'exd-red-coral': {
           DEFAULT: '#FF5331',
         },
+        'exd-tomato': {
+          DEFAULT: '#f53b02',
+        },
         'exd-blue-green': {
           DEFAULT: 'hsla(var(--blue))', //#2CC9B9
         },

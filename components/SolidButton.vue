@@ -73,6 +73,7 @@ const props = defineProps({
         'disabled',
         'gray',
         'dark',
+        'tomato',
       ].includes(value),
   },
   onClick: {
@@ -98,6 +99,8 @@ const variantClass = computed(() => {
     return '!bg-exd-dark-grey'
   } else if (props.variant === 'dark') {
     return '!bg-exd-dark'
+  } else if (props.variant === 'tomato') {
+    return '!bg-exd-tomato'
   } else {
     return '!bg-exd-red-vermilion'
   }
