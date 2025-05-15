@@ -20,12 +20,21 @@
 
       <SolidButton
         :label="$t('spinTheGacha')"
-        variant="dark"
+        variant="tomato"
         :disabled="isLoading"
         :has-loading="isLoading"
         :on-click="() => nextToSpin()"
         has-bottom
       />
+
+      <div
+        v-if="isLoading"
+        class="absolute w-[20vw] h-[20vw] sm:w-36 sm:h-36 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-lg shadow-xl animate-fadeIn z-50"
+      >
+        <div
+          class="w-[7.5vw] h-[7.5vw] sm:w-14 sm:h-14 border-4 border-t-exd-tomato border-r-exd-tomato border-b-exd-tomato border-l-transparent rounded-full animate-spin"
+        ></div>
+      </div>
     </div>
   </div>
 
@@ -395,7 +404,7 @@ const nextToSpin = async () => {
   setTimeout(() => {
     isLoading.value = false
     playVideo.value = true
-  }, 1000)
+  }, 2000)
 }
 
 const goToSpinPoint = async () => {
@@ -678,5 +687,20 @@ onMounted(() => {
 
 :deep(.p-component:disabled) {
   opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
 }
 </style>
