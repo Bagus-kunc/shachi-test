@@ -14,7 +14,7 @@
     "@nuxtjs/composition-api": "^0.34.0",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.1",
-    "@primevue/themes": "^4.0.1",
+    "@primevue/themes": "4.0.1",
     "axios": "^1.7.2",
     "babel-eslint": "^10.1.0",
     "crypto-js": "^4.2.0",
@@ -32,7 +32,7 @@
     "nuxt-lodash": "^2.4.1",
     "pinia": "^2.1.7",
     "prettier": "^2.8.3",
-    "primevue": "^4.0.1",
+    "primevue": "4.0.1",
     "swiper": "^11.1.14",
     "vue-meta": "^2.4.0",
     "yup": "^1.4.0"
@@ -40,7 +40,7 @@
   "devDependencies": {
     "@nuxt/postcss8": "^1.1.3",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
-    "@primevue/nuxt-module": "^4.0.1",
+    "@primevue/nuxt-module": "4.0.1",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.32.0",
     "nuxt-primevue": "^3.0.0",
@@ -52,6 +52,5 @@
   },
   "overrides": {
     "vue": "latest"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  }
 }
