@@ -102,6 +102,9 @@ const popupImage = ref('')
 const pointCategoryIsFail = ref(false)
 const modalLogin = ref(false)
 
+const canWInOrLose = ref(false)
+const pointCategoryLink = ref('')
+
 const { t } = useI18n()
 
 const handleCloseModalLogin = () => (modalLogin.value = false)
@@ -148,6 +151,7 @@ const fetchImageFromApi = async () => {
 
       const storage = {
         location_id: data.userPoint.location.id,
+        can_win_or_lose: data.userPoint.location.can_win_or_lose,
         point_id: data.userCollection.point?.id,
         point_image: data.userCollection.point?.image,
         point_name: data.userCollection.point?.name,
@@ -169,6 +173,7 @@ const fetchImageFromApi = async () => {
         popup_description: data.popup_description,
         redirect_link: data.redirect_link,
         share: data.share,
+        point_category_link: data.userPoint.point.point_category_link,
       }
 
       localStorage.setItem(slugStorageName, encryptData(storage))
@@ -182,8 +187,10 @@ const fetchImageFromApi = async () => {
       popupDescription.value = storage.popup_description
       popupImage.value = storage.popup_image
       pointCategoryIsFail.value = storage.point_category_is_fail
+      pointCategoryLink.value = storage.point_category_link
+      canWInOrLose.value = storage.can_win_or_lose
 
-      if (storage.share) {
+      if (storage?.share) {
         shareData.value = storage.share
       }
 
@@ -209,7 +216,7 @@ const fetchImageFromApi = async () => {
           pointImageUrl.value = parse.point_image
           categoryImageUrl.value = parse.popup_image
           pointName.value = parse.point_name
-          shareData.value = parse.share
+          shareData.value = parse?.share
 
           localStorage.setItem(slugStorageName, encryptData({ ...parse }))
 
@@ -227,9 +234,11 @@ const fetchImageFromApi = async () => {
         popupDescription.value = parse.popup_description
         popupImage.value = parse.popup_image
         pointCategoryIsFail.value = parse.point_category_is_fail
+        pointCategoryLink.value = parse.point_category_link
+        canWInOrLose.value = parse.can_win_or_lose
 
-        if (parse.share) {
-          shareData.value = parse.share
+        if (parse?.share) {
+          shareData.value = parse?.share
         }
         if (parse.point_category_is_fail) {
           popupButton.value = t('playAgain')
@@ -262,9 +271,11 @@ const fetchImageFromApi = async () => {
           popupDescription.value = parse.popup_description
           popupImage.value = parse.popup_image
           pointCategoryIsFail.value = parse.point_category_is_fail
+          pointCategoryLink.value = parse.point_category_link
+          canWInOrLose.value = parse.can_win_or_lose
 
-          if (parse.share) {
-            shareData.value = parse.share
+          if (parse?.share) {
+            shareData.value = parse?.share
           }
 
           if (parse.point_category_is_fail) {
@@ -287,6 +298,7 @@ const fetchImageFromApi = async () => {
 
       const storage = {
         location_id: data.location?.id,
+        can_win_or_lose: data.location?.can_win_or_lose,
         point_id: data.point?.id,
         point_image: data.point?.image,
         point_name: data.point?.name,
@@ -314,6 +326,7 @@ const fetchImageFromApi = async () => {
         popup_description: data.point.point_category_description,
         redirect_link: data.point.point_category_link,
         point_category_is_fail: !!data.point.point_category_is_fail,
+        point_category_link: data.point.point_category_link,
         spin_date: new Date().toLocaleString(),
         hide_character: data?.hide_character,
         share: data?.share,
@@ -330,9 +343,11 @@ const fetchImageFromApi = async () => {
       popupDescription.value = storage.popup_description
       popupImage.value = storage.popup_image
       pointCategoryIsFail.value = storage.point_category_is_fail
+      pointCategoryLink.value = storage.point_category_link
+      canWInOrLose.value = storage.can_win_or_lose
 
       if (storage.share) {
-        shareData.value = storage.share
+        shareData.value = storage?.share
       }
 
       if (storage.point_category_is_fail) {
@@ -374,7 +389,11 @@ const handleButton = async () => {
   }
 
   if (!TOKEN.value && !USER.value) {
-    handleShowDialog()
+    if (canWInOrLose.value) {
+      window.open(pointCategoryLink.value, '_blank')
+    } else {
+      handleShowDialog()
+    }
   } else {
     await navigateTo('/dashboard')
   }
@@ -392,10 +411,6 @@ const futureDateFromMinutes = (minutes) => {
 
 onMounted(() => {
   fetchImageFromApi()
-})
-
-watchEffect(() => {
-  // console.log('shareData', shareData.value)
 })
 </script>
 
