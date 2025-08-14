@@ -38,7 +38,7 @@
     <div class="absolute-10 top-1/2 translate-y-[80%]"></div>
     <div class="w-full absolute bottom-0 z-[1100]">
       <SolidButton
-        :label="$t('toTheNext')"
+        :label="$t('proceedToWiningForm')"
         :on-click="() => handleButton()"
         has-bottom
         variant="dark"
