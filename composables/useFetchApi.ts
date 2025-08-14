@@ -1,6 +1,10 @@
 const useFetchApi = async (method: any, url: string, opts = {}) => {
   const config = useRuntimeConfig()
 
+  if (!url.startsWith('/')) {
+    url = '/' + url
+  }
+
   const TOKEN = useCookie('TOKEN')
   const USER = useCookie('USER')
   const VALID_PASSWORD = useCookie('VALID_PASSWORD')
