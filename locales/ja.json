@@ -316,5 +316,7 @@
   "eligibilityMessageMaxQuota": "The point quota has reached maximum user , please play again to receive different prize",
   "formHere": "フォームはこちら",
   "playAgain": "ありがとうございました！",
-  "congrats": "おめでとうございます！\n店舗スタッフにこちらの\n画面をご提示ください"
+  "congrats": "おめでとうございます！\n店舗スタッフにこちらの\n画面をご提示ください",
+  "proceedToWiningForm": "当選フォームに進む",
+  "loading": "読み込み中..."
 }
