@@ -37,10 +37,11 @@
     </div>
     <div class="absolute-10 top-1/2 translate-y-[80%]"></div>
     <div class="w-full absolute bottom-0 z-[1100]">
-      {{ console.log(canWInOrLose) }}
       <SolidButton
-        :label="!canWInOrLose ? $t('toTheNext') : $t('proceedToWiningForm')"
+        :label="loadingCheck ? $t('loading') : (!canWinOrLose ? $t('toTheNext') : $t('proceedToWiningForm'))"
         :on-click="() => handleButton()"
+        :disabled="loadingCheck"
+        :has-loading="loadingCheck"
         has-bottom
         variant="dark"
       />
@@ -103,7 +104,7 @@ const popupImage = ref('')
 const pointCategoryIsFail = ref(false)
 const modalLogin = ref(false)
 
-const canWInOrLose = ref(false)
+const canWinOrLose = ref(false)
 const pointCategoryLink = ref('')
 
 const { t } = useI18n()
@@ -114,6 +115,16 @@ definePageMeta({
   middleware: 'valid-password',
   layout: 'gacha-machine',
 })
+
+const loadingCheck = ref(true)
+
+const cekCanWinOrLose = async () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(true)
+    }, 1000)
+  })
+}
 
 const fetchImageFromApi = async () => {
   try {
@@ -189,7 +200,7 @@ const fetchImageFromApi = async () => {
       popupImage.value = storage.popup_image
       pointCategoryIsFail.value = storage.point_category_is_fail
       pointCategoryLink.value = storage.point_category_link
-      canWInOrLose.value = storage.can_win_or_lose
+      canWinOrLose.value = storage.can_win_or_lose
 
       if (storage?.share) {
         shareData.value = storage.share
@@ -236,7 +247,7 @@ const fetchImageFromApi = async () => {
         popupImage.value = parse.popup_image
         pointCategoryIsFail.value = parse.point_category_is_fail
         pointCategoryLink.value = parse.point_category_link
-        canWInOrLose.value = parse.can_win_or_lose
+        canWinOrLose.value = parse.can_win_or_lose
 
         if (parse?.share) {
           shareData.value = parse?.share
@@ -273,7 +284,7 @@ const fetchImageFromApi = async () => {
           popupImage.value = parse.popup_image
           pointCategoryIsFail.value = parse.point_category_is_fail
           pointCategoryLink.value = parse.point_category_link
-          canWInOrLose.value = parse.can_win_or_lose
+          canWinOrLose.value = parse.can_win_or_lose
 
           if (parse?.share) {
             shareData.value = parse?.share
@@ -345,7 +356,7 @@ const fetchImageFromApi = async () => {
       popupImage.value = storage.popup_image
       pointCategoryIsFail.value = storage.point_category_is_fail
       pointCategoryLink.value = storage.point_category_link
-      canWInOrLose.value = storage.can_win_or_lose
+      canWinOrLose.value = storage.can_win_or_lose
 
       if (storage.share) {
         shareData.value = storage?.share
@@ -390,7 +401,7 @@ const handleButton = async () => {
   }
 
   if (!TOKEN.value && !USER.value) {
-    if (canWInOrLose.value) {
+    if (canWinOrLose.value) {
       window.open(pointCategoryLink.value, '_blank')
     } else {
       handleShowDialog()
@@ -412,6 +423,12 @@ const futureDateFromMinutes = (minutes) => {
 
 onMounted(() => {
   fetchImageFromApi()
+})
+
+onMounted(async () => {
+  loadingCheck.value = true
+  canWinOrLose.value = await cekCanWinOrLose()
+  loadingCheck.value = false
 })
 </script>
 
