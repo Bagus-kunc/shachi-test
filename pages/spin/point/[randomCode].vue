@@ -38,7 +38,13 @@
     <div class="absolute-10 top-1/2 translate-y-[80%]"></div>
     <div class="w-full absolute bottom-0 z-[1100]">
       <SolidButton
-        :label="loadingCheck ? $t('loading') : (!canWinOrLose ? $t('toTheNext') : $t('proceedToWiningForm'))"
+        :label="
+          loadingCheck
+            ? $t('loading')
+            : !canWinOrLose
+            ? $t('toTheNext')
+            : $t('proceedToWiningForm')
+        "
         :on-click="() => handleButton()"
         :disabled="loadingCheck"
         :has-loading="loadingCheck"
@@ -117,14 +123,6 @@ definePageMeta({
 })
 
 const loadingCheck = ref(true)
-
-const cekCanWinOrLose = async () => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(true)
-    }, 1000)
-  })
-}
 
 const fetchImageFromApi = async () => {
   try {
@@ -427,8 +425,9 @@ onMounted(() => {
 
 onMounted(async () => {
   loadingCheck.value = true
-  canWinOrLose.value = await cekCanWinOrLose()
-  loadingCheck.value = false
+  setTimeout(() => {
+    loadingCheck.value = false
+  }, 1000)
 })
 </script>
 
