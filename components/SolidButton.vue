@@ -13,7 +13,7 @@
       raised
       @click="handleClick"
     >
-      <span class="!text-center !w-full">{{ label }}</span>
+      <span class="!text-center !w-full sm:!text-exd-1424 !text-exd-1220">{{ label }}</span>
       <div class="!absolute !right-6 !top-1/2 !transform !-translate-y-1/2">
         <LoadingIcon v-if="hasLoading && variant !== 'skip'" />
         <img
