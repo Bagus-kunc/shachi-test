@@ -43,7 +43,7 @@
             ? $t('loading')
             : !canWinOrLose
             ? $t('toTheNext')
-            : $t('proceedToWiningForm')
+            : pointCategoryIsFail ? $t('tooBad') : $t('proceedToWiningForm')
         "
         :on-click="() => handleButton()"
         :disabled="loadingCheck"
@@ -183,7 +183,8 @@ const fetchImageFromApi = async () => {
         popup_description: data.popup_description,
         redirect_link: data.redirect_link,
         share: data.share,
-        point_category_link: data.userPoint.point.point_category_link,
+        point_category_link: !!data.userPoint.point.point_category_link,
+        point_category_is_fail: data.userPoint.point.point_category_is_fail,
       }
 
       localStorage.setItem(slugStorageName, encryptData(storage))

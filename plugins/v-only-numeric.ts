@@ -1,5 +1,5 @@
 import { defineNuxtPlugin } from '#app'
-import { DirectiveBinding } from 'vue'
+import type { DirectiveBinding } from 'vue';
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive('only-numeric', {
